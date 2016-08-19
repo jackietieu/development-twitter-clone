@@ -5,6 +5,23 @@ class TweetCompose {
     this.$textarea = $('textarea');
     $el.on('submit', this.submit.bind(this));
     this.$textarea.on('input', this.chars.bind(this));
+    this.$addMentionedUser = $('.add-mentioned-user');
+    this.$addMentionedUser.on('click', this.addMentionedUser.bind(this));
+    // debugger;
+  }
+
+  addMentionedUser (event) {
+    const tweetCompose = this;
+    $('.add-mentioned-user').empty();
+    if ($('select:last-child').val() != "") {
+      tweetCompose.addSelectedListener();
+    }
+  }
+
+  addSelectedListener () {
+    const tweetCompose = this;
+    let temp = $('.mentioned-users').append($('script[type="text/template"]').html());
+    $('select:last-child').on('change', tweetCompose.addMentionedUser.bind(tweetCompose));
   }
 
   chars (event) {
